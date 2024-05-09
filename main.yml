@@ -7,7 +7,7 @@ on:
     paths:
       - 'images/**' # Considerando que as imagens estão no diretório 'images/'
       - '!*.txt'    # Ignora os arquivos .txt
-
+      - '.github/**'
 jobs:
   githubactions-senai:
     runs-on: ubuntu-latest
@@ -17,6 +17,7 @@ jobs:
         
        - name: Transfer images to server
           run: |
-            scp -r images/* user@hostname:/path/to/destination
+            scp -r images/* ec2-user@44.204.93.143:/home/ec2-user/imagens
+
           env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
