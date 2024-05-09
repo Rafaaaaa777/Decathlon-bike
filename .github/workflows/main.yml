@@ -1,0 +1,20 @@
+name: Sync Images to EFS
+
+on:
+  push:
+    paths:
+      - 'imagens/**' # Caminho para a pasta de imagens
+
+jobs:
+  sync_images:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Sync Images
+        run: |
+          # Script para sincronizar imagens com o EFS
+          # Exemplo com rsync:
+          rsync -avz --exclude='.git' $GITHUB_WORKSPACE/imagens/ /mnt/efs
