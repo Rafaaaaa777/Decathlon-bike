@@ -1,0 +1,22 @@
+name: senai_automacao
+run-name: ${{ github.actor }} Pipeline deploy
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - 'images/**' # Considerando que as imagens estão no diretório 'images/'
+      - '!*.txt'    # Ignora os arquivos .txt
+
+jobs:
+  githubactions-senai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+       - name: Transfer images to server
+          run: |
+            scp -r images/* user@hostname:/path/to/destination
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
